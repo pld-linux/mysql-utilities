@@ -5,7 +5,6 @@ Version:	1.0.5
 Release:	1
 License:	GPL v2
 Group:		Applications/Databases
-Requires:	python-mysql-connector
 Source0:	ftp://ftp.mirrorservice.org/sites/ftp.mysql.com/Downloads/MySQLGUITools/mysql-workbench-gpl-5.2.39-src.tar.gz
 # Source0-md5:	35472b00d48a82d1d13954aef4f916fa
 Patch0:		mu-man.patch
