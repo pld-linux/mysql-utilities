@@ -24,6 +24,7 @@ and administering MySQL servers.
 %prep
 %setup -qc
 mv mysql-workbench-gpl-*-src/ext/%{name}/* .
+%{__rm} -r mysql-workbench-gpl-*-src
 %patch0 -p1
 
 %build
