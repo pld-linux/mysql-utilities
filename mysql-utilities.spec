@@ -1,12 +1,12 @@
 # NOTE: Not yet published (currently bundled with mysql-workbench),
 Summary:	Scripts for managing and administering MySQL servers
 Name:		mysql-utilities
-Version:	1.0.5
+Version:	1.1.0
 Release:	1
 License:	GPL v2
 Group:		Applications/Databases
-Source0:	ftp://ftp.mirrorservice.org/sites/ftp.mysql.com/Downloads/MySQLGUITools/mysql-workbench-gpl-5.2.39-src.tar.gz
-# Source0-md5:	35472b00d48a82d1d13954aef4f916fa
+Source0:	ftp://ftp.mirrorservice.org/sites/ftp.mysql.com/Downloads/MySQLGUITools/mysql-workbench-gpl-5.2.44-src.tar.gz
+# Source0-md5:	ea609fcd5d42333291a8ea6015627583
 Patch0:		mu-man.patch
 URL:		https://code.launchpad.net/mysql-utilities
 BuildRequires:	python-Sphinx >= 1.0
@@ -40,6 +40,7 @@ install -d $RPM_BUILD_ROOT%{_mandir}/man1
 
 # packaged by python-mysql-connector
 %{__rm} $RPM_BUILD_ROOT%{py_sitescriptdir}/mysql/__init__.py*
+%{__rm} -r $RPM_BUILD_ROOT%{py_sitescriptdir}/mysql/connector
 
 %py_ocomp $RPM_BUILD_ROOT%{py_sitescriptdir}
 %py_postclean
@@ -66,6 +67,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/mysqlrplshow
 %attr(755,root,root) %{_bindir}/mysqlserverclone
 %attr(755,root,root) %{_bindir}/mysqlserverinfo
+%attr(755,root,root) %{_bindir}/mysqluc
 %attr(755,root,root) %{_bindir}/mysqluserclone
 %{_mandir}/man1/mut.1*
 %{_mandir}/man1/mysqldbcompare.1*
@@ -74,14 +76,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/mysqldbimport.1*
 %{_mandir}/man1/mysqldiff.1*
 %{_mandir}/man1/mysqldiskusage.1*
+%{_mandir}/man1/mysqlfailover.1*
 %{_mandir}/man1/mysqlindexcheck.1*
 %{_mandir}/man1/mysqlmetagrep.1*
 %{_mandir}/man1/mysqlprocgrep.1*
 %{_mandir}/man1/mysqlreplicate.1*
+%{_mandir}/man1/mysqlrpladmin.1*
 %{_mandir}/man1/mysqlrplcheck.1*
 %{_mandir}/man1/mysqlrplshow.1*
 %{_mandir}/man1/mysqlserverclone.1*
 %{_mandir}/man1/mysqlserverinfo.1*
+%{_mandir}/man1/mysqluc.1*
 %{_mandir}/man1/mysqluserclone.1*
 
 %dir %{py_sitescriptdir}/mysql/utilities
