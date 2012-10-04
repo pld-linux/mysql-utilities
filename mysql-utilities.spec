@@ -8,6 +8,7 @@ Group:		Applications/Databases
 Source0:	ftp://ftp.mirrorservice.org/sites/ftp.mysql.com/Downloads/MySQLGUITools/mysql-workbench-gpl-5.2.44-src.tar.gz
 # Source0-md5:	ea609fcd5d42333291a8ea6015627583
 Patch0:		mu-man.patch
+Patch1:		paths.patch
 URL:		https://code.launchpad.net/mysql-utilities
 BuildRequires:	python-Sphinx >= 1.0
 BuildRequires:	python-devel >= 1:2.4
@@ -26,6 +27,7 @@ and administering MySQL servers.
 mv mysql-workbench-gpl-*-src/ext/%{name}/* .
 %{__rm} -r mysql-workbench-gpl-*-src
 %patch0 -p1
+%patch1 -p1
 
 %build
 v=$(head -n1 CHANGES.txt | awk '{print $2}')

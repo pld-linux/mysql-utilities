@@ -1,0 +1,22 @@
+--- mysql-utilities-1.1.0/scripts/mysqluc.py~	2012-09-26 23:50:42.000000000 +0300
++++ mysql-utilities-1.1.0/scripts/mysqluc.py	2012-10-05 00:18:03.368605109 +0300
+@@ -56,7 +56,7 @@
+ """
+ GOODBYE_MESSAGE = "\nThanks for using the MySQL Utilities Client!\n"
+ PRINT_WIDTH = 75
+-UTIL_PATH = "/scripts"
++UTIL_PATH = "/usr/bin"
+ 
+ def build_variable_dictionary_list(args):
+     """Build a variable dictionary from the arguments
+--- mysql-utilities-1.1.0/mysql/utilities/common/utilities.py~	2012-09-26 23:50:47.000000000 +0300
++++ mysql-utilities-1.1.0/mysql/utilities/common/utilities.py	2012-10-05 00:20:03.354069432 +0300
+@@ -42,7 +42,7 @@
+ 
+     Returns string - path to utilities or None if not found
+     """
+-    needle = 'mysqlreplicate.py'
++    needle = 'mysqlreplicate'
+     
+     # Try the default by itself
+     if os.path.isfile(os.path.join(default_path, needle)):
