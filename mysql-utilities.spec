@@ -14,6 +14,7 @@ BuildRequires:	python-Sphinx >= 1.0
 BuildRequires:	python-devel >= 1:2.4
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.566
+BuildRequires:	sed >= 4.0
 Requires:	python-mysql-connector
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -28,6 +29,11 @@ mv mysql-workbench-gpl-*-src/ext/%{name}/* .
 %{__rm} -r mysql-workbench-gpl-*-src
 %patch0 -p1
 %patch1 -p1
+
+# build static list of mysql utilities
+# because otherwise it will try to run python --help for every *.py it finds from /usr/bin!
+for py in scripts/*.py; do basename $py .py; done > scripts.manifest
+%{__sed} -i -e "s/'HERE BE DRAGONS'/'$(xargs < scripts.manifest)'/" mysql/utilities/common/utilities.py
 
 %build
 v=$(head -n1 CHANGES.txt | awk '{print $2}')

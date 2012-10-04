@@ -20,3 +20,45 @@
      
      # Try the default by itself
      if os.path.isfile(os.path.join(default_path, needle)):
+--- mysql-utilities-1.1.0/./mysql/utilities/command/utilitiesconsole.py~	2012-09-26 23:50:42.000000000 +0300
++++ mysql-utilities-1.1.0/./mysql/utilities/command/utilitiesconsole.py	2012-10-05 00:48:39.151811044 +0300
+@@ -263,8 +263,8 @@
+         """
+         import subprocess
+         
+-        if not os.path.splitext(command.lower()) == '.py':
+-            command += '.py'
++#        if not os.path.splitext(command.lower()) == '.py':
++#            command += '.py'
+         if not command.lower().startswith('mysql'):
+             command = 'mysql' + command
+         cmd = 'python ' + os.path.join(self.utils.util_path, command)
+--- mysql-utilities-1.1.0/./mysql/utilities/common/utilities.py	2012-10-05 00:53:12.070889308 +0300
++++ mysql-utilities-1.1.0/./mysql/utilities/common/utilities.py	2012-10-05 00:53:12.070889308 +0300
+@@ -95,13 +95,14 @@
+         
+         This method builds a list of utilities.
+         """
+-        files = os.listdir(self.util_path)
++        files = 'HERE BE DRAGONS'.split(' ')
+         for file in files:
++            # XXX mysql devs: RTFM: splitext always returns len(parts) == 2
+             parts = os.path.splitext(file)
+             # Only accept python files - not .pyc and others
+-            if (len(parts) == 2 and parts[1] == '.py' and \
++            if (parts[1] == '.py' and \
+                 parts[0] not in _EXCLUDE_UTILS) or \
+-               (len(parts) ==1 and parts[0] not in _EXCLUDE_UTILS):
++               (parts[1] == '' and parts[0] not in _EXCLUDE_UTILS):
+                 util_name = parts[0]
+                 util_info = self._get_util_info(self.util_path, util_name)
+                 self.util_list.append(util_info)
+@@ -136,7 +137,7 @@
+ 
+         # Get the --help output for the utility
+         util_cmd = "python " + os.path.join(util_path,
+-                                            util_name+'.py') + " --help"
++                                            util_name) + " --help"
+         file = tempfile.TemporaryFile()
+         proc = subprocess.Popen(util_cmd, shell=True,
+                                 stdout=file, stderr=file)
