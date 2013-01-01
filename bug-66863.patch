@@ -4,6 +4,9 @@ http://bazaar.launchpad.net/~mysql/mysql-utilities/trunk/revision/148#mysql/util
 
 or maybe even earlier
 
+http://bugs.mysql.com/bug.php?id=66863
+also http://bugs.mysql.com/bug.php?id=67512
+
 --- mysql-utilities-1.1.0/./mysql/utilities/common/server.py~	2012-09-26 23:50:47.000000000 +0300
 +++ mysql-utilities-1.1.0/./mysql/utilities/common/server.py	2012-10-05 01:30:37.440326297 +0300
 @@ -330,7 +330,7 @@
