@@ -1,15 +1,14 @@
 # NOTE: Not yet published (currently bundled with mysql-workbench),
 Summary:	Scripts for managing and administering MySQL servers
 Name:		mysql-utilities
-Version:	1.1.0
+Version:	1.1.1
 Release:	1
 License:	GPL v2
 Group:		Applications/Databases
-Source0:	ftp://ftp.mirrorservice.org/sites/ftp.mysql.com/Downloads/MySQLGUITools/mysql-workbench-gpl-5.2.44-src.tar.gz
-# Source0-md5:	ea609fcd5d42333291a8ea6015627583
+Source0:	ftp://ftp.mirrorservice.org/sites/ftp.mysql.com/Downloads/MySQLGUITools/mysql-workbench-gpl-5.2.45-src.tar.gz
+# Source0-md5:	9cb676dd11ae54e3b6b9819331050122
 Patch0:		mu-man.patch
 Patch1:		paths.patch
-Patch2:		bug-66863.patch
 URL:		https://code.launchpad.net/mysql-utilities
 BuildRequires:	python-Sphinx >= 1.0
 BuildRequires:	python-devel >= 1:2.4
@@ -30,7 +29,6 @@ mv mysql-workbench-gpl-*-src/ext/%{name}/* .
 %{__rm} -r mysql-workbench-gpl-*-src
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 # build static list of mysql utilities
 # because otherwise it will try to run python --help for every *.py it finds from /usr/bin!
