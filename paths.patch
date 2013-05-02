@@ -9,56 +9,54 @@
  
  def build_variable_dictionary_list(args):
      """Build a variable dictionary from the arguments
---- mysql-utilities-1.1.0/mysql/utilities/common/utilities.py~	2012-09-26 23:50:47.000000000 +0300
-+++ mysql-utilities-1.1.0/mysql/utilities/common/utilities.py	2012-10-05 00:20:03.354069432 +0300
-@@ -42,7 +42,7 @@
+--- mysql-utilities-1.2.0/mysql/utilities/command/utilitiesconsole.py~	2013-01-31 14:54:30.000000000 +0200
++++ mysql-utilities-1.2.0/mysql/utilities/command/utilitiesconsole.py	2013-04-25 11:01:52.097092325 +0300
+@@ -271,7 +271,7 @@
+         else:
+             parts = os.path.splitext(command)
+             if parts[1] == "":
+-                exts = [command+'.py', command+'.exe']
++                exts = [command, command+'.py', command+'.exe']
+                 for ext in exts:
+                     utility_path = os.path.join(path, ext)
+                     if os.path.isfile(utility_path):
+--- mysql-utilities-1.2.0/mysql/utilities/common/utilities.py~	2013-01-31 14:54:34.000000000 +0200
++++ mysql-utilities-1.2.0/mysql/utilities/common/utilities.py	2013-04-25 11:00:17.732812679 +0300
+@@ -57,7 +57,7 @@
+         return None
  
-     Returns string - path to utilities or None if not found
-     """
--    needle = 'mysqlreplicate.py'
-+    needle = 'mysqlreplicate'
-     
-     # Try the default by itself
-     if os.path.isfile(os.path.join(default_path, needle)):
---- mysql-utilities-1.1.0/./mysql/utilities/command/utilitiesconsole.py~	2012-09-26 23:50:42.000000000 +0300
-+++ mysql-utilities-1.1.0/./mysql/utilities/command/utilitiesconsole.py	2012-10-05 00:48:39.151811044 +0300
-@@ -263,8 +263,8 @@
-         """
-         import subprocess
-         
--        if not os.path.splitext(command.lower()) == '.py':
--            command += '.py'
-+#        if not os.path.splitext(command.lower()) == '.py':
-+#            command += '.py'
-         if not command.lower().startswith('mysql'):
-             command = 'mysql' + command
-         cmd = 'python ' + os.path.join(self.utils.util_path, command)
---- mysql-utilities-1.1.0/./mysql/utilities/common/utilities.py	2012-10-05 00:53:12.070889308 +0300
-+++ mysql-utilities-1.1.0/./mysql/utilities/common/utilities.py	2012-10-05 00:53:12.070889308 +0300
-@@ -95,13 +95,14 @@
-         
-         This method builds a list of utilities.
-         """
+     needle_name = 'mysqlreplicate'
+-    needles = [needle_name + ".py"]
++    needles = [needle_name]
+     if os.name == "nt": 
+         needles.append(needle_name + ".exe")
+     else: 
+@@ -145,16 +145,17 @@
+         pattern_alias = "\s+\-(\w+)\s*" # match Alias of the form <-Alias>
+         self.program_name = re.compile(pattern_alias)
+ 
 -        files = os.listdir(self.util_path)
 +        files = 'HERE BE DRAGONS'.split(' ')
-         for file in files:
-+            # XXX mysql devs: RTFM: splitext always returns len(parts) == 2
-             parts = os.path.splitext(file)
-             # Only accept python files - not .pyc and others
--            if (len(parts) == 2 and parts[1] == '.py' and \
-+            if (parts[1] == '.py' and \
-                 parts[0] not in _EXCLUDE_UTILS) or \
--               (len(parts) ==1 and parts[0] not in _EXCLUDE_UTILS):
-+               (parts[1] == '' and parts[0] not in _EXCLUDE_UTILS):
-                 util_name = parts[0]
-                 util_info = self._get_util_info(self.util_path, util_name)
-                 self.util_list.append(util_info)
-@@ -136,7 +137,7 @@
  
+         working_utils = []
+         for file_name in files:
++            # XXX mysql devs: RTFM: splitext always returns len(parts) == 2
+             parts = os.path.splitext(file_name)
+             # Only accept python files - not .pyc and others
+             # Parts returns second as empty if does not have ext, so len is 2
+             exts = ['.py', '.exe', '']
+             if (parts[0] not in _EXCLUDE_UTILS and
+-                (len(parts) == 1 or (len(parts) == 2 and parts[1] in exts))):
++                (parts[1] == '' or (parts[1] in exts))):
+                 util_name = str(parts[0])
+                 if util_name not in working_utils: 
+                     util_info = self._get_util_info(self.util_path, util_name, 
+@@ -175,7 +176,7 @@
+         Returns dictionary - name, description, usage, options
+         """
          # Get the --help output for the utility
-         util_cmd = "python " + os.path.join(util_path,
--                                            util_name+'.py') + " --help"
-+                                            util_name) + " --help"
-         file = tempfile.TemporaryFile()
-         proc = subprocess.Popen(util_cmd, shell=True,
-                                 stdout=file, stderr=file)
+-        command = util_name + ".py"
++        command = util_name
+         if not os.path.exists(os.path.join(util_path, command)):
+             command = file_name 
+         cmd = []
