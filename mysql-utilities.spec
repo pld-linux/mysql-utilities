@@ -1,16 +1,13 @@
 Summary:	Scripts for managing and administering MySQL servers
 Name:		mysql-utilities
-Version:	1.3.1
-Release:	0.1
+Version:	1.3.6
+Release:	1
 License:	GPL v2
 Group:		Applications/Databases
-#Source0:	ftp://ftp.mirrorservice.org/sites/ftp.mysql.com/Downloads/MySQLGUITools/mysql-workbench-gpl-5.2.46-src.tar.gz
 Source0:	http://cdn.mysql.com/Downloads/MySQLGUITools/%{name}-%{version}.tar.gz
-# Source0-md5:	b758d0b6a69df8981fdcafc42d74ea85
-#Patch0:		mu-man.patch
-#Patch1:		paths.patch
+# Source0-md5:	3340c775b06c9cbf7de5df57ffb6ce22
+Patch1:		paths.patch
 URL:		http://dev.mysql.com/downloads/tools/utilities/
-#URL:		https://code.launchpad.net/mysql-utilities
 BuildRequires:	python-Sphinx >= 1.0
 BuildRequires:	python-devel >= 1:2.4
 BuildRequires:	rpm-pythonprov
@@ -33,25 +30,17 @@ are used for maintaining and administering MySQL servers, including:
 v=$(head -n1 CHANGES.txt | awk '{print $2}')
 test "$v" = "%{version}"
 
-#%patch0 -p1
-#%patch1 -p1
-
-# build static list of mysql utilities
-# because otherwise it will try to run python --help for every *.py it finds from /usr/bin!
-for py in scripts/*.py; do basename $py .py; done > scripts.manifest
-%{__sed} -i -e "s/'HERE BE DRAGONS'/'$(xargs < scripts.manifest)'/" mysql/utilities/common/utilities.py
+%patch1 -p1
 
 %build
 %install
 rm -rf $RPM_BUILD_ROOT
-#install -d $RPM_BUILD_ROOT%{_mandir}/man1
 %{__python} setup.py install_man install \
 	--skip-profile \
 	--root $RPM_BUILD_ROOT
 
 # packaged by python-mysql-connector
 %{__rm} $RPM_BUILD_ROOT%{py_sitescriptdir}/mysql/__init__.py*
-#%{__rm} -r $RPM_BUILD_ROOT%{py_sitescriptdir}/mysql/connector
 
 %py_ocomp $RPM_BUILD_ROOT%{py_sitescriptdir}
 %py_postclean

@@ -9,54 +9,14 @@
  
  def build_variable_dictionary_list(args):
      """Build a variable dictionary from the arguments
---- mysql-utilities-1.2.0/mysql/utilities/command/utilitiesconsole.py~	2013-01-31 14:54:30.000000000 +0200
-+++ mysql-utilities-1.2.0/mysql/utilities/command/utilitiesconsole.py	2013-04-25 11:01:52.097092325 +0300
-@@ -271,7 +271,7 @@
-         else:
-             parts = os.path.splitext(command)
-             if parts[1] == "":
--                exts = [command+'.py', command+'.exe']
-+                exts = [command, command+'.py', command+'.exe']
-                 for ext in exts:
-                     utility_path = os.path.join(path, ext)
-                     if os.path.isfile(utility_path):
---- mysql-utilities-1.2.0/mysql/utilities/common/utilities.py~	2013-01-31 14:54:34.000000000 +0200
-+++ mysql-utilities-1.2.0/mysql/utilities/common/utilities.py	2013-04-25 11:00:17.732812679 +0300
-@@ -57,7 +57,7 @@
+--- mysql-utilities-1.3.6/mysql/utilities/common/utilities.py~	2014-05-01 15:21:49.000000000 +0300
++++ mysql-utilities-1.3.6/mysql/utilities/common/utilities.py	2014-05-01 15:23:35.067914839 +0300
+@@ -98,7 +98,7 @@
          return None
  
      needle_name = 'mysqlreplicate'
 -    needles = [needle_name + ".py"]
 +    needles = [needle_name]
-     if os.name == "nt": 
+     if os.name == "nt":
          needles.append(needle_name + ".exe")
-     else: 
-@@ -145,16 +145,17 @@
-         pattern_alias = "\s+\-(\w+)\s*" # match Alias of the form <-Alias>
-         self.program_name = re.compile(pattern_alias)
- 
--        files = os.listdir(self.util_path)
-+        files = 'HERE BE DRAGONS'.split(' ')
- 
-         working_utils = []
-         for file_name in files:
-+            # XXX mysql devs: RTFM: splitext always returns len(parts) == 2
-             parts = os.path.splitext(file_name)
-             # Only accept python files - not .pyc and others
-             # Parts returns second as empty if does not have ext, so len is 2
-             exts = ['.py', '.exe', '']
-             if (parts[0] not in _EXCLUDE_UTILS and
--                (len(parts) == 1 or (len(parts) == 2 and parts[1] in exts))):
-+                (parts[1] == '' or (parts[1] in exts))):
-                 util_name = str(parts[0])
-                 if util_name not in working_utils: 
-                     util_info = self._get_util_info(self.util_path, util_name, 
-@@ -175,7 +176,7 @@
-         Returns dictionary - name, description, usage, options
-         """
-         # Get the --help output for the utility
--        command = util_name + ".py"
-+        command = util_name
-         if not os.path.exists(os.path.join(util_path, command)):
-             command = file_name 
-         cmd = []
+     else:
