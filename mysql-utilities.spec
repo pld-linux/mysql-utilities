@@ -9,7 +9,7 @@ Source0:	http://cdn.mysql.com/Downloads/MySQLGUITools/%{name}-%{version}.tar.gz
 Patch1:		paths.patch
 URL:		http://dev.mysql.com/downloads/tools/utilities/
 BuildRequires:	python-Sphinx >= 1.0
-BuildRequires:	python-devel >= 1:2.4
+BuildRequires:	python-devel >= 1:2.6
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.566
 BuildRequires:	sed >= 4.0
@@ -99,6 +99,4 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitescriptdir}/mysql/utilities/command/*.py[co]
 %dir %{py_sitescriptdir}/mysql/utilities/common
 %{py_sitescriptdir}/mysql/utilities/common/*.py[co]
-%if "%{py_ver}" > "2.4"
 %{py_sitescriptdir}/mysql_utilities-*.egg-info
-%endif
