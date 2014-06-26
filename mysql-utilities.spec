@@ -1,11 +1,11 @@
 Summary:	Scripts for managing and administering MySQL servers
 Name:		mysql-utilities
-Version:	1.3.6
+Version:	1.4.3
 Release:	1
 License:	GPL v2
 Group:		Applications/Databases
 Source0:	http://cdn.mysql.com/Downloads/MySQLGUITools/%{name}-%{version}.tar.gz
-# Source0-md5:	3340c775b06c9cbf7de5df57ffb6ce22
+# Source0-md5:	bfe86977134c453bbe914e387121775f
 Patch1:		paths.patch
 URL:		http://dev.mysql.com/downloads/tools/utilities/
 BuildRequires:	python-Sphinx >= 1.0
