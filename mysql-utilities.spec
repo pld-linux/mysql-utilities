@@ -57,6 +57,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc *.txt
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/mysql/fabric.cfg
 %attr(755,root,root) %{_bindir}/mysqlauditadmin
 %attr(755,root,root) %{_bindir}/mysqlauditgrep
 %attr(755,root,root) %{_bindir}/mysqldbcompare
