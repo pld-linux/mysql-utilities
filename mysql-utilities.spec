@@ -1,11 +1,11 @@
 Summary:	Scripts for managing and administering MySQL servers
 Name:		mysql-utilities
-Version:	1.4.4
+Version:	1.5.6
 Release:	1
 License:	GPL v2
 Group:		Applications/Databases
-Source0:	http://cdn.mysql.com/Downloads/MySQLGUITools/%{name}-%{version}.tar.gz
-# Source0-md5:	48d22baa52e933f993b106f4f274fead
+Source0:	http://cdn.mysql.com/Downloads/MySQLGUITools/%{name}-%{version}.zip
+# Source0-md5:	bb2eb4d3b5e332bae4d36f026f03e059
 Patch1:		paths.patch
 URL:		http://dev.mysql.com/downloads/utilities/
 BuildRequires:	python-Sphinx >= 1.0
@@ -27,7 +27,7 @@ are used for maintaining and administering MySQL servers, including:
 
 %prep
 %setup -q
-v=$(head -n1 CHANGES.txt | awk '{print $2}')
+v=$(head -n1 CHANGES.txt | awk -F'-' '{print $2}')
 v=${v%qa1}
 test "$v" = "%{version}"
 
@@ -103,6 +103,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/mysqluc.1*
 %{_mandir}/man1/mysqluserclone.1*
 
+%dir %{py_sitescriptdir}/mysql
 %dir %{py_sitescriptdir}/mysql/utilities
 %{py_sitescriptdir}/mysql/utilities/*.py[co]
 %dir %{py_sitescriptdir}/mysql/utilities/command
