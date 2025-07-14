@@ -31,7 +31,7 @@ v=$(head -n1 CHANGES.txt | awk -F'-' '{print $2}')
 v=${v%qa1}
 test "$v" = "%{version}"
 
-%patch1 -p1
+%patch -P1 -p1
 
 # you'll need this if you cp -a complete dir in source
 # cleanup backups after patching
